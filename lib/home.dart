@@ -76,6 +76,7 @@ class Home extends StatelessWidget {
     );
   }
 
+  // Opens the selected user's record in a dialog
   openRecord(context) {
     AlertDialog alert = AlertDialog(
       title: Text("Update/Delete Record"),
