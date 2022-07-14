@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:first_assignment/user_model.dart';
@@ -8,11 +10,11 @@ import 'package:provider/provider.dart';
 class UserForm {
   static final _formKey = GlobalKey<FormState>();
 
-  static TextEditingController nameController = new TextEditingController();
-  static TextEditingController ageController = new TextEditingController();
-  static TextEditingController emailController = new TextEditingController();
-  static TextEditingController phoneController = new TextEditingController();
-  static TextEditingController passwordController = new TextEditingController();
+  static TextEditingController nameController = TextEditingController();
+  static TextEditingController ageController = TextEditingController();
+  static TextEditingController emailController = TextEditingController();
+  static TextEditingController phoneController = TextEditingController();
+  static TextEditingController passwordController = TextEditingController();
 
   static User? selectedUser;
 
@@ -26,6 +28,12 @@ class UserForm {
       emailController.text = selectedUser!.email_id;
       phoneController.text = selectedUser!.phone;
       passwordController.text = selectedUser!.password;
+    } else {
+      nameController.clear();
+      ageController.clear();
+      emailController.clear();
+      phoneController.clear();
+      passwordController.clear();
     }
 
     return Container(
@@ -142,7 +150,8 @@ class UserForm {
                                   child: const Text('update'),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         const SnackBar(
                                             content: Text('Processing Data')),
                                       );
@@ -162,7 +171,8 @@ class UserForm {
                                   child: const Text('Delete'),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         const SnackBar(
                                             content: Text('Processing Data')),
                                       );
@@ -201,7 +211,6 @@ class UserForm {
   }
 
   static Future updateUser() async {
-    print('selectedUser!.id : ${selectedUser!.id}');
     final firebaseUser =
         FirebaseFirestore.instance.collection('users').doc(selectedUser!.id);
 

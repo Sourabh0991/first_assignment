@@ -1,19 +1,24 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class FirebaseRegistration extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  FirebaseRegistration({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Firebase Registration'),
+        title: const Text('Firebase Registration'),
       ),
       body: Center(
         child: Container(

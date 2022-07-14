@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:first_assignment/login.dart';
 import 'package:first_assignment/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +36,14 @@ class MyApp extends StatelessWidget {
           future: _initialization,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              print('Error : ${snapshot.error}');
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Error'),
+                      content: Text('Something went wrong!'),
+                    );
+                  });
             }
 
             if (snapshot.connectionState == ConnectionState.done) {
