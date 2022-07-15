@@ -184,6 +184,18 @@ class UserForm {
                                   },
                                 ),
                               ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: ElevatedButton(
+                                  key: const Key('user_form_cancel_button'),
+                                  child: const Text('Cancel'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ),
                             )
                           ],
                         ),
