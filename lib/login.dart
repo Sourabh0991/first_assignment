@@ -38,6 +38,7 @@ class Login extends StatelessWidget {
                 child: Column(
                   children: [
                     TextFormField(
+                      key: const Key('login_email_id'),
                       controller: emailController,
                       decoration: InputDecoration(labelText: 'Email Address'),
                       maxLines: 1,
@@ -53,6 +54,7 @@ class Login extends StatelessWidget {
                       },
                     ),
                     TextFormField(
+                      key: const Key('login_password'),
                       controller: passwordController,
                       decoration: InputDecoration(labelText: 'Password'),
                       maxLines: 1,
@@ -67,6 +69,7 @@ class Login extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       child: ElevatedButton(
+                        key: const Key('login_submit_button'),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             // ScaffoldMessenger.of(context).showSnackBar(
