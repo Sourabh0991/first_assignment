@@ -28,7 +28,6 @@ class LoginScreen {
     final login = find.byKey(const Key('login_submit_button'));
 
     await tester.tap(login);
-    await tester.testTextInput.receiveAction(TextInputAction.done);
     await tester.pumpAndSettle(const Duration(seconds: 2));
   }
 }

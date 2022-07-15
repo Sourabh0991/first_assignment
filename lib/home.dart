@@ -40,6 +40,7 @@ class Home extends StatelessWidget {
             }
 
             return ListView(
+              key: const Key('users_list'),
               children:
                   users.map((element) => buildUser(element, context)).toList(),
             );
@@ -56,6 +57,7 @@ class Home extends StatelessWidget {
   // List item widget to showcase each list item as per this widget
   Widget buildUser(user_model.User user, context) {
     return ListTile(
+      key: Key(user.id),
       leading: CircleAvatar(
         child: Text(
           '${user.age.toString()}',
