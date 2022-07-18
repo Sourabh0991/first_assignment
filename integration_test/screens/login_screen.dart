@@ -19,7 +19,6 @@ class LoginScreen {
     await tester.enterText(emailId, 'sourabhshastri1990@gmail.com');
     await tester.testTextInput.receiveAction(TextInputAction.done);
     // await tester.pumpAndSettle(const Duration(seconds: 2));
-    await Helper.pumpUntilFound(tester, find.text('Login Failed'));
   }
 
   Future<void> enterCorrectPassword() async {

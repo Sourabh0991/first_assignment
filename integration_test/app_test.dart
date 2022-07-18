@@ -13,7 +13,7 @@ void main() {
   HomeScreen homeScreen;
 
   group("First Assignment Integration Test", () {
-    testWidgets('Login - Wrong email and wrong password',
+    testWidgets('End-to-end Test',
         (WidgetTester tester) async {
       main_app.main(); // Launches app from main()
 
@@ -28,43 +28,57 @@ void main() {
       await loginScreen.enterWrongEmailId();
       await loginScreen.enterWrongPassword();
       await loginScreen.pressLogin();
-      await Helper.pumpUntilFound(
-          tester, find.byWidgetPredicate((widget) => true));
+
+      await tester.pumpAndSettle(const Duration(seconds: 5));
+
+      // await Helper.pumpUntilFound(tester, find.text('Login Failed'));
+
+      // expect(find.byWidgetPredicate((widget) => widget is Fluttertoast), findsWidgets);
 
       await loginScreen.clearTextFields();
-      await tester.pumpAndSettle(const Duration(seconds: 5));
+      await tester.pumpAndSettle(const Duration(seconds: 2));
 
       // expect(find.byWidgetPredicate((widget) => true), findsOneWidget);
 
       //Wrong email and correct password
-      // await loginScreen.enterWrongEmailId();
-      // await loginScreen.enterCorrectPassword();
-      // await loginScreen.pressLogin();
+      await loginScreen.enterWrongEmailId();
+      await loginScreen.enterCorrectPassword();
+      await loginScreen.pressLogin();
+      await tester.pumpAndSettle(const Duration(seconds: 5));
+
       // await Helper.pumpUntilFound(
       //     tester, find.byWidgetPredicate((widget) => true));
 
-      // await loginScreen.clearTextFields();
-      // await tester.pumpAndSettle(const Duration(seconds: 5));
+      await loginScreen.clearTextFields();
+      await tester.pumpAndSettle(const Duration(seconds: 2));
 
       // expect(find.byWidgetPredicate((widget) => true), findsOneWidget);
 
-      // // Correct email and wrong password
-      // await loginScreen.enterCorrectEmailId();
-      // await loginScreen.enterWrongPassword();
-      // await loginScreen.pressLogin();
-      // await Helper.pumpUntilFound(
-      //     tester, find.byWidgetPredicate((widget) => true));
+      // Correct email and wrong password
+      await loginScreen.enterCorrectEmailId();
+      await loginScreen.enterWrongPassword();
+      await loginScreen.pressLogin();
+      await tester.pumpAndSettle(const Duration(seconds: 5));
 
-      // expect(find.byWidgetPredicate((widget) => true), findsOneWidget);
-
-      // // Correct email and correct password
-      // await loginScreen.enterCorrectEmailId();
-      // await loginScreen.enterCorrectPassword();
-      // await loginScreen.pressLogin();
       // await Helper.pumpUntilFound(
       //     tester, find.byWidgetPredicate((widget) => true));
 
       // expect(find.byWidgetPredicate((widget) => true), findsOneWidget);
+
+
+      await loginScreen.clearTextFields();
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+
+      // Correct email and correct password
+      await loginScreen.enterCorrectEmailId();
+      await tester.pumpAndSettle();
+      await loginScreen.enterCorrectPassword();
+      await tester.pumpAndSettle();
+      await loginScreen.pressLogin();
+      await Helper.pumpUntilFound(
+          tester, find.text('Home'));
+
+      expect(find.text('Home'), findsOneWidget);
 
       //Operations of Home Screen
       // await homeScreen.pressListTile();

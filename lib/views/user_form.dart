@@ -2,10 +2,12 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:first_assignment/user_model.dart';
-import 'package:first_assignment/user_provider.dart';
+import 'package:first_assignment/models/user_model.dart';
+import 'package:first_assignment/models/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../models/user_model.dart';
 
 class UserForm {
   static final _formKey = GlobalKey<FormState>();

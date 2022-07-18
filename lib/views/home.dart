@@ -2,12 +2,12 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:first_assignment/login.dart';
-import 'package:first_assignment/registration.dart';
-import 'package:first_assignment/user_form.dart';
-import 'package:first_assignment/user_provider.dart';
+import 'package:first_assignment/views/login.dart';
+import 'package:first_assignment/views/registration.dart';
+import 'package:first_assignment/views/user_form.dart';
+import 'package:first_assignment/models/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:first_assignment/user_model.dart' as user_model;
+import 'package:first_assignment/models/user_model.dart' as user_model;
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {

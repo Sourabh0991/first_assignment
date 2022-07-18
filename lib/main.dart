@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:first_assignment/login.dart';
-import 'package:first_assignment/user_provider.dart';
+import 'package:first_assignment/views/login.dart';
+import 'package:first_assignment/models/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';

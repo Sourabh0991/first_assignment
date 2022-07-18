@@ -2,8 +2,8 @@
 
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:first_assignment/firebase_registration.dart';
-import 'package:first_assignment/home.dart';
+import 'package:first_assignment/services/firebase_registration.dart';
+import 'package:first_assignment/views/home.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
