@@ -1,32 +1,33 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import '../helper.dart';
-
 class RegisterScreen {
   final WidgetTester tester;
 
   RegisterScreen(this.tester);
 
-  Future<void> fillForm() async {
+  Future<void> fillForm(
+      {String fullName = '',
+      String age = '',
+      String phoneNo = '',
+      String email = '',
+      String password = ''}) async {
     await tester.tap(find.bySemanticsLabel('Full Name'));
-    await tester.enterText(find.bySemanticsLabel('Full Name'), 'Test Player');
+    await tester.enterText(find.bySemanticsLabel('Full Name'), fullName);
 
-    await tester.enterText(find.bySemanticsLabel('Age'), '25');
+    await tester.enterText(find.bySemanticsLabel('Age'), age);
 
-    await tester.enterText(find.bySemanticsLabel('Phone No.'), '1234567890');
+    await tester.enterText(find.bySemanticsLabel('Phone No.'), phoneNo);
 
-    await tester.enterText(
-        find.bySemanticsLabel('Email Address'), 'test.player@gmail.com');
+    await tester.enterText(find.bySemanticsLabel('Email Address'), email);
 
-    await tester.enterText(find.bySemanticsLabel('Set Password'), 'test@123');
-
+    await tester.enterText(find.bySemanticsLabel('Set Password'), password);
   }
 
   Future<void> clickSubmitButton() async {
-
     await tester.tap(find.text('Submit'));
+  }
 
-    await Helper.pumpUntilFound(tester, find.text('Test Player'));
-
+  Future<void> clickUpdateButton() async {
+    await tester.tap(find.text('Update'));
   }
 }

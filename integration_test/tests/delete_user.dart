@@ -1,0 +1,30 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:first_assignment/main.dart' as main_app;
+
+import '../helper.dart';
+import '../screens/home_screen.dart';
+import '../screens/login_screen.dart';
+
+void main() {
+  group('Delete Operation', () {
+    testWidgets('Delete a user', (WidgetTester tester) async {
+      main_app.main();
+
+      final loginScreen = LoginScreen(tester);
+      final homeScreen = HomeScreen(tester);
+
+      await Helper.pumpUntilFound(tester, find.byType(ElevatedButton));
+
+      await loginScreen.loginSuccessfully();
+      await Helper.pumpUntilFound(tester, find.text('Home'));
+
+      await Helper.pumpUntilFound(tester, find.text('Test Player'));
+      await homeScreen.pressListTile('Test Player');
+      await tester.pumpAndSettle(const Duration(seconds: 3));
+      await homeScreen.tapDeleteButton();
+
+      expect(find.text('Test Player'), findsNothing);
+    });
+  });
+}

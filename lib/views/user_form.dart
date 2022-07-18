@@ -39,10 +39,10 @@ class UserForm {
     }
 
     return Container(
-        margin: const EdgeInsets.all(15.0),
+        margin: const EdgeInsets.all(10.0),
         padding: const EdgeInsets.all(10.0),
         width: MediaQuery.of(context).size.width * 0.33,
-        height: MediaQuery.of(context).size.width * 0.33,
+        height: MediaQuery.of(context).size.height * 0.7,
         decoration: BoxDecoration(
             border: Border.all(
               color: Colors.blueAccent,
@@ -149,7 +149,7 @@ class UserForm {
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: ElevatedButton(
-                                  child: const Text('update'),
+                                  child: const Text('Update'),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
                                       ScaffoldMessenger.of(context)
