@@ -5,8 +5,6 @@ class HomeScreen {
   final WidgetTester tester;
   HomeScreen(this.tester);
 
-  final list = find.byKey(const Key('users_list'));
-
   Future<void> pressListTile() async {
     final listTile = find.text('Ravindra Jadeja');
     final cancelButton = find.text('Cancel');
@@ -20,7 +18,6 @@ class HomeScreen {
 
   Future<void> scrollDownList() async {
     // Need to check with Rajesh
-
     // await tester.scrollUntilVisible(list, -300);
 
     await tester.drag(find.text('Hardik Pandya'), const Offset(0, -500));

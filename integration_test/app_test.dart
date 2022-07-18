@@ -5,12 +5,14 @@ import 'package:integration_test/integration_test.dart';
 import 'helper.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
+import 'screens/register_screen.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   LoginScreen loginScreen;
   HomeScreen homeScreen;
+  RegisterScreen registerScreen;
 
   group("First Assignment Integration Test", () {
     testWidgets('End-to-end Test', (WidgetTester tester) async {
@@ -18,6 +20,7 @@ void main() {
 
       loginScreen = LoginScreen(tester);
       homeScreen = HomeScreen(tester);
+      registerScreen = RegisterScreen(tester);
 
       await tester.pumpAndSettle(const Duration(seconds: 2));
 
@@ -84,6 +87,24 @@ void main() {
 
       expect(find.text('Ravindra Jadeja'), findsOneWidget);
 
+      // Goto to Registration and Submit form
+      await homeScreen.goToRegistration();
+      await Helper.pumpUntilFound(tester, find.text('Registration'));
+
+      // Fill Registration form
+      await registerScreen.fillForm();
+      await tester.pumpAndSettle(const Duration(seconds: 2));
+      await registerScreen.clickSubmitButton();
+
+      // Once submitted, goes back to Home and updates list
+      await Helper.pumpUntilFound(tester, find.text('Home'));
+
+      //Open Test Player record
+      await Helper.pumpUntilFound(tester, find.text('Test Player'));
+      await tester.tap(find.text('Test Player'));
+      await tester.pumpAndSettle(const Duration(seconds: 5));
+
+      expect(find.text('Update'), findsOneWidget);
     });
 
     // testWidgets('Login - Wrong email and correct password',
