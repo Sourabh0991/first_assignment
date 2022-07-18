@@ -13,8 +13,7 @@ void main() {
   HomeScreen homeScreen;
 
   group("First Assignment Integration Test", () {
-    testWidgets('End-to-end Test',
-        (WidgetTester tester) async {
+    testWidgets('End-to-end Test', (WidgetTester tester) async {
       main_app.main(); // Launches app from main()
 
       loginScreen = LoginScreen(tester);
@@ -65,7 +64,6 @@ void main() {
 
       // expect(find.byWidgetPredicate((widget) => true), findsOneWidget);
 
-
       await loginScreen.clearTextFields();
       await tester.pumpAndSettle(const Duration(seconds: 2));
 
@@ -75,14 +73,17 @@ void main() {
       await loginScreen.enterCorrectPassword();
       await tester.pumpAndSettle();
       await loginScreen.pressLogin();
-      await Helper.pumpUntilFound(
-          tester, find.text('Home'));
+      await Helper.pumpUntilFound(tester, find.text('Home'));
 
       expect(find.text('Home'), findsOneWidget);
 
       //Operations of Home Screen
-      // await homeScreen.pressListTile();
-      // await homeScreen.scrollDownList();
+      await homeScreen.pressListTile();
+      await homeScreen.scrollDownList();
+      await Helper.pumpUntilFound(tester, find.text('Ravindra Jadeja'));
+
+      expect(find.text('Ravindra Jadeja'), findsOneWidget);
+
     });
 
     // testWidgets('Login - Wrong email and correct password',
