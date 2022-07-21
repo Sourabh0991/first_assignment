@@ -1,14 +1,13 @@
-// ignore_for_file: prefer_const_constructors, duplicate_ignore, sort_child_properties_last, unnecessary_string_interpolations
-
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:first_assignment/services/firebase_services.dart';
+import 'package:first_assignment/values/string_values.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:first_assignment/views/login.dart';
 import 'package:first_assignment/views/registration.dart';
-import 'package:first_assignment/views/user_form.dart';
+import 'package:first_assignment/components/user_form.dart';
 import 'package:first_assignment/models/user_provider.dart';
-import 'package:flutter/material.dart';
 import 'package:first_assignment/models/user_model.dart' as user_model;
-import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -18,74 +17,70 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Home'),
+        title: const Text(StringValues.homeTitle),
         actions: [
           IconButton(
               onPressed: () => goToRegistration(context),
-              icon: Icon(Icons.add_circle_outline)),
+              icon: const Icon(Icons.add_circle_outline)),
           IconButton(
               onPressed: () => logout(context),
-              icon: Icon(Icons.power_settings_new)),
+              icon: const Icon(Icons.power_settings_new)),
         ],
       ),
-      // Stream builder to get users from FireStore and stream to observe any change
       body: StreamBuilder<List<user_model.User>>(
-        stream: getUsers(),
+        stream: FirebaseServices.getUsers(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final users = snapshot.data!;
-
             if (users.isEmpty) {
-              return Text('No Data');
+              return const Text(StringValues.noDataFoundMsg);
             }
-
             return ListView(
-              key: const Key('users_list'),
               children:
                   users.map((element) => buildUser(element, context)).toList(),
             );
           } else if (snapshot.hasError) {
-            return Text('Error loading data');
+            return const Text(StringValues.errorLoadingData);
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),
     );
   }
 
-  // List item widget to showcase each list item as per this widget
   Widget buildUser(user_model.User user, context) {
     return ListTile(
       key: Key(user.id),
       leading: CircleAvatar(
-        child: Text(
-          '${user.age.toString()}',
-          style: TextStyle(color: Colors.white),
-        ),
         backgroundColor: Colors.blue[300],
+        child: Text(
+          user.age.toString(),
+          style: const TextStyle(color: Colors.white),
+        ),
       ),
-      title: Text('${user.name}'),
+      title: Text(user.name),
       subtitle: Row(
         children: [
-          Expanded(child: Text('Email Id: ${user.email_id}')),
-          Expanded(child: Text('Phone: ${user.phone}'))
+          Expanded(
+              child:
+                  Text('${StringValues.emailListTileLabel} ${user.email_id}')),
+          Expanded(
+              child: Text('${StringValues.phoneListTileLabel} ${user.phone}'))
         ],
       ),
       onTap: () {
         Provider.of<UserProvider>(context, listen: false).setSelectedUser(user);
-
         openRecord(context);
       },
     );
   }
 
-  // Opens the selected user's record in a dialog
   openRecord(context) {
     AlertDialog alert = AlertDialog(
-      title: Text("Update/Delete Record"),
+      title: const Text(StringValues.updateDeleteDialogTitle),
       actions: [
-        UserForm.displayUserForm(context, 'update'),
+        UserForm.displayUserForm(context, StringValues.updateUserFormParameter),
       ],
     );
 
@@ -96,7 +91,6 @@ class Home extends StatelessWidget {
         });
   }
 
-  // Logout using FirebaseAuth
   Future logout(context) async {
     FirebaseAuth.instance.signOut().then((value) {
       Navigator.pushReplacement(
@@ -104,17 +98,8 @@ class Home extends StatelessWidget {
     });
   }
 
-  // Takes to registration page
   goToRegistration(context) {
     Navigator.push(
         context, MaterialPageRoute(builder: ((context) => Registration())));
   }
-
-  // Read users from firestore and serialize them as per User class
-  Stream<List<user_model.User>> getUsers() => FirebaseFirestore.instance
-      .collection('users')
-      .snapshots()
-      .map((snapshot) => snapshot.docs
-          .map((doc) => user_model.User.fromJson(doc.data()))
-          .toList());
 }

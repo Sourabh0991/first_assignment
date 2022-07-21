@@ -19,12 +19,12 @@ void main() {
       await loginScreen.loginSuccessfully();
       await Helper.pumpUntilFound(tester, find.text('Home'));
 
-      await Helper.pumpUntilFound(tester, find.text('Test Player'));
-      await homeScreen.pressListTile('Test Player');
+      await Helper.pumpUntilFound(tester, find.text('Ravindra Jadeja'));
+      await homeScreen.pressListTile('Ravindra Jadeja');
       await tester.pumpAndSettle(const Duration(seconds: 3));
       await homeScreen.tapDeleteButton();
 
-      expect(find.text('Test Player'), findsNothing);
+      expect(find.text('Ravindra Jadeja'), findsNothing);
     });
   });
 }

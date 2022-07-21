@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:first_assignment/services/firebase_services.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:first_assignment/views/firebase_registration.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:first_assignment/components/loader.dart';
 import 'package:first_assignment/values/string_values.dart';
 
-class Login extends StatelessWidget {
+class FirebaseRegistration extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Login({Key? key}) : super(key: key);
+  FirebaseRegistration({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(StringValues.loginTitle),
+        title: const Text(StringValues.firebaseRegistrationTitle),
       ),
       body: Center(
         child: Container(
             margin: const EdgeInsets.all(15.0),
             padding: const EdgeInsets.all(10.0),
-            width: MediaQuery.of(context).size.width * 0.20,
+            width: MediaQuery.of(context).size.width * 0.33,
             height: MediaQuery.of(context).size.width * 0.20,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -53,7 +54,7 @@ class Login extends StatelessWidget {
                     TextFormField(
                       controller: _passwordController,
                       decoration: const InputDecoration(
-                          labelText: StringValues.passwordLabel),
+                          labelText: StringValues.setPasswordLabel),
                       maxLines: 1,
                       obscureText: true,
                       validator: (value) {
@@ -66,37 +67,46 @@ class Login extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       child: ElevatedButton(
-                        onPressed: () => _loginOperation(context),
-                        child: const Text(StringValues.loginTitle),
+                        onPressed: () => register(context),
+                        child: const Text(StringValues.submitButtonTitle),
                       ),
                     ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: TextButton(
-                          onPressed: () => _gotoRegistration(context),
-                          child: const Text(StringValues.gotoRegistration),
-                        ))
                   ],
                 ))),
       ),
     );
   }
 
-  _loginOperation(context) {
+  register(context) {
     if (_formKey.currentState!.validate()) {
-      final user = {
-        StringValues.emailIdKey: _emailController.text,
-        StringValues.passwordKey: _passwordController.text
-      };
-      FirebaseServices.attemptLogin(user, context);
-    }
-  }
+      Loader.showLoader(context);
 
-  _gotoRegistration(context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => FirebaseRegistration(),
-        ));
+      FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: _emailController.text, password: _passwordController.text)
+          .then((value) {
+        Fluttertoast.showToast(
+            msg: StringValues.registrationSuccessMsg,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            webBgColor: "green",
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        Navigator.pop(context);
+        _formKey.currentState!.reset();
+      }).onError((error, stackTrace) {
+        Fluttertoast.showToast(
+            msg: StringValues.registrationFailedMsg,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            webBgColor: "red",
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      });
+    }
   }
 }
