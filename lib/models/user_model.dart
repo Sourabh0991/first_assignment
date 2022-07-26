@@ -1,10 +1,8 @@
-// ignore_for_file: non_constant_identifier_names
-
 class User {
   String id;
   final String name;
   final int age;
-  final String email_id;
+  final String emailId;
   final String phone;
   final String password;
 
@@ -12,7 +10,7 @@ class User {
       {this.id = '',
       required this.name,
       required this.age,
-      required this.email_id,
+      required this.emailId,
       required this.phone,
       required this.password});
 
@@ -20,7 +18,7 @@ class User {
         'id': id,
         'name': name,
         'age': age,
-        'email_id': email_id,
+        'email_id': emailId,
         'phone': phone,
         'password': password
       };
@@ -29,7 +27,7 @@ class User {
       id: json['id'],
       name: json['name'],
       age: int.parse(json['age'].toString()),
-      email_id: json['email_id'],
+      emailId: json['email_id'],
       phone: json['phone'],
       password: json['password']);
 }

@@ -41,13 +41,7 @@ class Login extends StatelessWidget {
                       maxLines: 1,
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return StringValues.emptyEmailWarning;
-                        }
-                        if (!EmailValidator.validate(value)) {
-                          return StringValues.invalidEmailWarning;
-                        }
-                        return null;
+                        return _validationCheck(value, StringValues.emailLabel);
                       },
                     ),
                     TextFormField(
@@ -57,10 +51,7 @@ class Login extends StatelessWidget {
                       maxLines: 1,
                       obscureText: true,
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return StringValues.emptyPasswordWarning;
-                        }
-                        return null;
+                        return _validationCheck(value, StringValues.passwordLabel);
                       },
                     ),
                     Padding(
@@ -80,6 +71,24 @@ class Login extends StatelessWidget {
                 ))),
       ),
     );
+  }
+
+  _validationCheck(value, label) {
+    if (value == null || value.isEmpty) {
+      if (label == StringValues.emailLabel) {
+        return StringValues.emptyEmailWarning;
+      } else if (label == StringValues.passwordLabel) {
+        return StringValues.emptyPasswordWarning;
+      }
+    }
+
+    if (label == StringValues.emailLabel) {
+      if (!EmailValidator.validate(value)) {
+        return StringValues.invalidEmailWarning;
+      }
+    }
+
+    return null;
   }
 
   _loginOperation(context) {

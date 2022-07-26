@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:first_assignment/components/user_form.dart';
 import 'package:first_assignment/models/user_model.dart';
 import 'package:first_assignment/services/firebase_services.dart';
@@ -22,24 +21,11 @@ class RegistrationFormButton {
       var userToCreate = User(
           name: UserForm.nameController.text,
           age: int.parse(UserForm.ageController.text),
-          email_id: UserForm.emailController.text,
+          emailId: UserForm.emailController.text,
           phone: UserForm.phoneController.text,
           password: UserForm.passwordController.text);
 
-      FirebaseServices.createUser(userToCreate, UserForm.formKey).then(
-        (value) {
-          Fluttertoast.showToast(
-              msg: StringValues.registrationSuccessMsg,
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
-              timeInSecForIosWeb: 1,
-              webBgColor: "green",
-              backgroundColor: Colors.green,
-              textColor: Colors.white,
-              fontSize: 16.0);
-          Navigator.pop(context);
-        },
-      );
+      FirebaseServices.createUser(userToCreate, UserForm.formKey);
     }
   }
 
@@ -88,7 +74,7 @@ class RegistrationFormButton {
           id: UserForm.selectedUser.id,
           name: UserForm.nameController.text,
           age: int.parse(UserForm.ageController.text),
-          email_id: UserForm.emailController.text,
+          emailId: UserForm.emailController.text,
           phone: UserForm.phoneController.text,
           password: UserForm.passwordController.text);
 

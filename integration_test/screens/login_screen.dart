@@ -47,7 +47,7 @@ class LoginScreen {
     await tester.enterText(password, '');
   }
 
-  Future<void> loginSuccessfully() async {
+  Future<void> login() async {
     await enterCorrectEmailId();
     await tester.pumpAndSettle();
     await enterCorrectPassword();

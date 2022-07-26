@@ -25,7 +25,7 @@ class UserForm {
 
       nameController.text = selectedUser.name;
       ageController.text = selectedUser.age.toString();
-      emailController.text = selectedUser.email_id;
+      emailController.text = selectedUser.emailId;
       phoneController.text = selectedUser.phone;
       passwordController.text = selectedUser.password;
     } else {

@@ -64,7 +64,7 @@ class Home extends StatelessWidget {
         children: [
           Expanded(
               child:
-                  Text('${StringValues.emailListTileLabel} ${user.email_id}')),
+                  Text('${StringValues.emailListTileLabel} ${user.emailId}')),
           Expanded(
               child: Text('${StringValues.phoneListTileLabel} ${user.phone}'))
         ],
@@ -100,6 +100,6 @@ class Home extends StatelessWidget {
 
   goToRegistration(context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: ((context) => Registration())));
+        context, MaterialPageRoute(builder: ((context) => const Registration())));
   }
 }

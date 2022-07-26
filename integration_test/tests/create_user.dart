@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:first_assignment/main.dart' as main_app;
-
 import '../helper.dart';
 import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';
@@ -17,11 +16,8 @@ void main() {
       final registerScreen = RegisterScreen(tester);
 
       await Helper.pumpUntilFound(tester, find.byType(ElevatedButton));
-
-      await loginScreen.loginSuccessfully();
-
+      await loginScreen.login();
       await homeScreen.goToRegistration();
-
       await Helper.pumpUntilFound(tester, find.text('Registration'));
       await registerScreen.fillForm(
           fullName: 'Test Player',
@@ -30,7 +26,6 @@ void main() {
           phoneNo: '8397492374',
           password: 'test@123');
       await registerScreen.clickSubmitButton();
-
       await Helper.pumpUntilFound(tester, find.text('Home'));
       await Helper.pumpUntilFound(tester, find.text('Test Player'));
 
@@ -45,13 +40,11 @@ void main() {
       final registerScreen = RegisterScreen(tester);
 
       await Helper.pumpUntilFound(tester, find.byType(ElevatedButton));
-
-      await loginScreen.loginSuccessfully();
-
+      await loginScreen.login();
       await homeScreen.goToRegistration();
       await registerScreen.fillForm();
       await registerScreen.clickSubmitButton();
-      await tester.pumpAndSettle(const Duration(seconds: 3));
+      await tester.pumpAndSettle();
 
       expect(find.text('Please enter your name', skipOffstage: false),
           findsOneWidget);

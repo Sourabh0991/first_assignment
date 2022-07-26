@@ -13,13 +13,9 @@ class RegisterScreen {
       String password = ''}) async {
     await tester.tap(find.bySemanticsLabel('Full Name'));
     await tester.enterText(find.bySemanticsLabel('Full Name'), fullName);
-
     await tester.enterText(find.bySemanticsLabel('Age'), age);
-
     await tester.enterText(find.bySemanticsLabel('Phone No.'), phoneNo);
-
     await tester.enterText(find.bySemanticsLabel('Email Address'), email);
-
     await tester.enterText(find.bySemanticsLabel('Set Password'), password);
   }
 

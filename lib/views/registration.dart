@@ -1,16 +1,16 @@
-// ignore_for_file: use_key_in_widget_constructors, must_be_immutable, prefer_const_constructors
-
-import 'package:first_assignment/components/user_form.dart';
 import 'package:flutter/material.dart';
+import 'package:first_assignment/components/user_form.dart';
 
 class Registration extends StatelessWidget {
+  const Registration({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Registration'),
+        title: const Text('Registration'),
       ),
       body: Center(child: UserForm.displayUserForm(context, 'create')),
     );

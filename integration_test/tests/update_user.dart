@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:first_assignment/main.dart' as main_app;
-
 import '../helper.dart';
 import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';
@@ -19,7 +18,7 @@ void main() {
 
       await Helper.pumpUntilFound(tester, find.byType(ElevatedButton));
 
-      await loginScreen.loginSuccessfully();
+      await loginScreen.login();
       await Helper.pumpUntilFound(tester, find.text('Home'));
 
       await Helper.pumpUntilFound(tester, find.text('Ravindra Jadeja'));
@@ -40,7 +39,7 @@ void main() {
 
       await Helper.pumpUntilFound(tester, find.byType(ElevatedButton));
 
-      await loginScreen.loginSuccessfully();
+      await loginScreen.login();
       await Helper.pumpUntilFound(tester, find.text('Home'));
 
       await Helper.pumpUntilFound(tester, find.text('Ravindra Jadeja'));
@@ -49,7 +48,7 @@ void main() {
 
       await registerScreen.fillForm();
       await registerScreen.clickUpdateButton();
-      await tester.pumpAndSettle(const Duration(seconds: 3));
+      await tester.pumpAndSettle();
       expect(find.bySemanticsLabel('Please enter your name'), findsOneWidget);
     });
   });

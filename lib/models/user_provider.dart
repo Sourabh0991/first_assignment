@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 class UserProvider extends ChangeNotifier {
 
-  User? selectedUser;
+  late User selectedUser;
 
   void setSelectedUser(value) {
     selectedUser = value;
   }
 
   User getSelectedUser() {
-    return selectedUser!;
+    return selectedUser;
   }
   
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import '../helper.dart';
 
 class HomeScreen {
@@ -18,7 +17,7 @@ class HomeScreen {
     final cancelButton = find.text('Cancel');
 
     await tester.tap(cancelButton);
-    await tester.pumpAndSettle(const Duration(seconds: 2));
+    await tester.pumpAndSettle();
   }
 
   Future<void> updateRecord(String newPhoneNo) async {
@@ -34,7 +33,7 @@ class HomeScreen {
     final deleteButton = find.text('Delete');
 
     await tester.tap(deleteButton);
-    await tester.pumpAndSettle(const Duration(seconds: 2));
+    await tester.pumpAndSettle();
   }
 
   Future<void> scrollDownList() async {
@@ -44,16 +43,37 @@ class HomeScreen {
 
   Future<void> goToRegistration() async {
     await Helper.pumpUntilFound(tester, find.byIcon(Icons.add_circle_outline));
-    final iconButton = find.byIcon(Icons.add_circle_outline);
-
-    await tester.tap(iconButton);
+    await tester.tap(_iconButton(Icons.add_circle_outline));
     await tester.pumpAndSettle(const Duration(seconds: 2));
   }
 
   Future<void> logout() async {
-    final iconButton = find.byIcon(Icons.power_settings_new);
-
-    await tester.tap(iconButton);
+    await tester.tap(_iconButton(Icons.power_settings_new));
     await tester.pumpAndSettle(const Duration(seconds: 2));
+  }
+
+  _iconButton(iconData) {
+    return find.byIcon(iconData);
+  }
+
+  Future checkNewlyCreatedUser(String text) async {
+    await tester.scrollUntilVisible(find.text('Rishabh Pant'), 10);
+
+    final listView = tester.widget<ListView>(find.byType(ListView));
+
+
+    // print('Line62 : Length : ${listView.controller!.jumpTo(100)}');
+
+    // final list = tester.widgetList(find.byType(ListTile));
+    // final countOfListItems = list.length;
+    // print('Line62 Length of List : $countOfListItems');
+
+    // if (countOfListItems > 0) {
+    //   for (var listItem in list) {
+    //     print('Line65: $listItem');
+    //   }
+    // } else {
+    //   print('Line65: No list item');
+    // }
   }
 }
