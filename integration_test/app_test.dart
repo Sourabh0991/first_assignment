@@ -11,11 +11,11 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group("First Assignment Integration Test", () {
-    // login_logout.main();
-    // create_user.main();
+    login_logout.main();
+    create_user.main();
     read_user.main();
-    // update_user.main();
-    // delete_user.main();
+    update_user.main();
+    delete_user.main();
 
   });
 }

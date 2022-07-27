@@ -1,3 +1,4 @@
+import 'package:first_assignment/values/string_values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:first_assignment/main.dart' as main_app;
@@ -7,47 +8,23 @@ import '../screens/login_screen.dart';
 
 void main() {
   group('Read Operation', () {
-    // testWidgets('Read a record from list item', (WidgetTester tester) async {
-    //   main_app.main();
 
-    //   final loginScreen = LoginScreen(tester);
-    //   final homeScreen = HomeScreen(tester);
-
-    //   await Helper.pumpUntilFound(tester, find.byType(ElevatedButton));
-    //   await loginScreen.login();
-    //   await Helper.pumpUntilFound(tester, find.text('Home'));
-    //   await homeScreen.pressListTile('Ravindra Jadeja');
-    //   await Helper.pumpUntilFound(tester, find.text('Ravindra Jadeja'));
-
-    //   expect(find.text('Ravindra Jadeja'), findsWidgets);
-    // });
-
-    testWidgets('Read all records from list item', (WidgetTester tester) async {
+    testWidgets('Read records from list item', (WidgetTester tester) async {
       main_app.main();
 
       final loginScreen = LoginScreen(tester);
+      var textToSearch = 'Rishabh Pant';
 
       await Helper.pumpUntilFound(tester, find.byType(ElevatedButton));
       await loginScreen.login();
       await Helper.pumpUntilFound(tester, find.text('Home'));
+
+      await Helper.scrollUntilFound(tester, textToSearch);
+      await tester.pumpAndSettle();
       final homeScreen = HomeScreen(tester);
-      homeScreen.checkNewlyCreatedUser('Rishabh Pant');
-
-      // expect(find.text('Ravindra Jadeja'), findsWidgets);
+      await homeScreen.pressListTile(textToSearch);
+      await Helper.pumpUntilFound(
+          tester, find.text(StringValues.updateDeleteDialogTitle));
     });
-
-    // testWidgets('Scroll list', (WidgetTester tester) async {
-    //   main_app.main();
-
-    //   final loginScreen = LoginScreen(tester);
-    //   final homeScreen = HomeScreen(tester);
-
-    //   await Helper.pumpUntilFound(tester, find.byType(ElevatedButton));
-    //   await loginScreen.login();
-    //   await Helper.pumpUntilFound(tester, find.text('Home'));
-    //   await homeScreen.scrollDownList();
-
-    //   expect(find.text('Rishabh Pant'), findsOneWidget);
-    // });
   });
 }

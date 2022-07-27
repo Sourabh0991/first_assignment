@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:first_assignment/models/user_model.dart';
 
 class Helper {
   static Future<void> pumpUntilFound(WidgetTester tester, Finder finder,
@@ -16,18 +15,17 @@ class Helper {
     timer.cancel();
   }
 
-  static checkPosition(int index, User user, {bool isOnPosition = true}) {
-    final listItemFinder = find.byType(ListTile);
-    final listItem =
-        listItemFinder.evaluate().isEmpty ? null : listItemFinder.at(index);
-    if (listItem == null) {
-      if (isOnPosition) {
-        fail('List not found');
-      }
-      return;
-    }
-    final positionText = find.text(user.name);
-    expect(find.descendant(of: listItem, matching: positionText),
-        isOnPosition ? findsOneWidget : findsNothing);
+  static Future<void> scrollUntilFound(WidgetTester tester, String text,
+      {matcher = findsOneWidget}) async {
+    final listFinder = find.byType(Scrollable);
+    final itemFinder = find.text(text);
+    await tester
+        .scrollUntilVisible(
+          itemFinder,
+          500.0,
+          scrollable: listFinder,
+        )
+        .onError((error, stackTrace) => expect(find.text(text), matcher))
+        .then((value) => expect(find.text(text), findsOneWidget));
   }
 }
